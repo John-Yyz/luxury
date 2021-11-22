@@ -157,19 +157,4 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.luxury.model.AdvertiseInfo">
-    update advertise_info
-    set name = #{name,jdbcType=VARCHAR},
-      content_type = #{contentType,jdbcType=INTEGER},
-      content = #{content,jdbcType=VARCHAR},
-      link_type = #{linkType,jdbcType=INTEGER},
-      link_url = #{linkUrl,jdbcType=VARCHAR},
-      push_date = #{pushDate,jdbcType=VARCHAR},
-      sort = #{sort,jdbcType=INTEGER},
-      status = #{status,jdbcType=INTEGER},
-      create_date = #{createDate,jdbcType=VARCHAR},
-      update_date = #{updateDate,jdbcType=VARCHAR},
-      create_id = #{createId,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
 </mapper>

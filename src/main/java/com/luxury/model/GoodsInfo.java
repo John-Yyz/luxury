@@ -1,7 +1,7 @@
 package com.luxury.model;
 
 public class GoodsInfo {
-    private String 商品id;
+    private String goodsId;
 
     private Integer id;
 
@@ -13,12 +13,12 @@ public class GoodsInfo {
 
     private Integer status;
 
-    public String get商品id() {
-        return 商品id;
+    public String getGoodsId() {
+        return goodsId;
     }
 
-    public void set商品id(String 商品id) {
-        this.商品id = 商品id == null ? null : 商品id.trim();
+    public void setGoodsId(String goodsId) {
+        this.goodsId = goodsId == null ? null : goodsId.trim();
     }
 
     public Integer getId() {
