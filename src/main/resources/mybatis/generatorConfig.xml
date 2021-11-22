@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+		PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+		"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<!-- 数据库驱动包位置 (改成自己存放的具体路径) -->
+	<!--<classPathEntry location="D:/dev_software/mysql-connector-java-5.1.25.jar" />-->
+
+	<context id="MySQL2Tables" targetRuntime="MyBatis3"
+			 defaultModelType="flat">
+		<commentGenerator>
+			<property name="suppressDate" value="true" />
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<!--数据库链接地址账号密码 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+						connectionURL="jdbc:mysql://localhost:3306/luxury?serverTimezone=Asia/Shanghai"
+						userId="root" password="123456">
+		</jdbcConnection>
+
+		<!-- true：使用BigDecimal对应DECIMAL和 NUMERIC数据类型 -->
+		<!-- false：默认, scale>0;length>18：使用BigDecimal; scale=0;length[10,18]：使用Long;
+			scale=0;length[5,9]：使用Integer; scale=0;length<5：使用Short; -->
+		<javaTypeResolver
+				type="org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl">
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!--生成Model类存放位置 -->
+		<javaModelGenerator targetPackage="com.luxury.model"
+							targetProject="src/main/java">
+			<!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false -->
+			<property name="enableSubPackages" value="true" />
+			<!-- 设置是否在getter方法中，对String类型字段调用trim()方法 -->
+			<property name="trimStrings" value="true" />
+
+			<!-- for MyBatis3/MyBatis3Simple 自动为每一个生成的类创建一个构造方法，构造方法包含了所有的field；而不是使用setter； -->
+			<property name="constructorBased" value="false" />
+			<!-- for MyBatis3/MyBatis3Simple 是否创建一个不可变的类，如果为true， 那么MBG会创建一个没有setter方法的类，取而代之的是类似constructorBased的类 -->
+			<property name="immutable" value="false" />
+		</javaModelGenerator>
+
+		<!--生成映射文件存放位置 -->
+		<sqlMapGenerator targetPackage="mapper"
+						 targetProject="src/main/resources">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<!--生成Dao类存放位置 -->
+		<javaClientGenerator type="XMLMAPPER"
+							 targetPackage="com.luxury.mapper" targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+		<!--生成对应表及类名 -->
+		<table tableName="advertise_info" enableCountByExample="false"
+			   enableUpdateByExample="false" enableDeleteByExample="false"
+			   enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="AdvertiseInfo" value="true" />
+			<!-- 需要插入时返回主键值，请将此属性打开，column值为主键的列明 -->
+			<generatedKey column="id" sqlStatement="MySql" identity="true" />
+		</table>
+		<table tableName="appraisal_config_info" enableCountByExample="false"
+			   enableUpdateByExample="false" enableDeleteByExample="false"
+			   enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="AppraisalConfigInfo" value="true" />
+			<!-- 需要插入时返回主键值，请将此属性打开，column值为主键的列明 -->
+			<generatedKey column="id" sqlStatement="MySql" identity="true" />
+		</table>
+		<table tableName="area" enableCountByExample="false"
+			   enableUpdateByExample="false" enableDeleteByExample="false"
+			   enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="Area" value="true" />
+			<!-- 需要插入时返回主键值，请将此属性打开，column值为主键的列明 -->
+			<generatedKey column="id" sqlStatement="MySql" identity="true" />
+		</table>
+		<table tableName="enterprise_info" enableCountByExample="false"
+			   enableUpdateByExample="false" enableDeleteByExample="false"
+			   enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="EnterpriseInfo" value="true" />
+			<!-- 需要插入时返回主键值，请将此属性打开，column值为主键的列明 -->
+			<generatedKey column="id" sqlStatement="MySql" identity="true" />
+		</table>
+		<table tableName="enterprise_user" enableCountByExample="false"
+			   enableUpdateByExample="false" enableDeleteByExample="false"
+			   enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="EnterpriseUser" value="true" />
+			<!-- 需要插入时返回主键值，请将此属性打开，column值为主键的列明 -->
+			<generatedKey column="id" sqlStatement="MySql" identity="true" />
+		</table>
+		<table tableName="goods_appraisal" enableCountByExample="false"
+			   enableUpdateByExample="false" enableDeleteByExample="false"
+			   enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="GoodsAppraisal" value="true" />
+			<!-- 需要插入时返回主键值，请将此属性打开，column值为主键的列明 -->
+			<generatedKey column="id" sqlStatement="MySql" identity="true" />
+		</table>
+		<table tableName="goods_appraisal_picture" enableCountByExample="false"
+			   enableUpdateByExample="false" enableDeleteByExample="false"
+			   enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="GoodsAppraisalPicture" value="true" />
+			<!-- 需要插入时返回主键值，请将此属性打开，column值为主键的列明 -->
+			<generatedKey column="id" sqlStatement="MySql" identity="true" />
+		</table>
+		<table tableName="goods_assess" enableCountByExample="false"
+			   enableUpdateByExample="false" enableDeleteByExample="false"
+			   enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="GoodsAssess" value="true" />
+			<!-- 需要插入时返回主键值，请将此属性打开，column值为主键的列明 -->
+			<generatedKey column="id" sqlStatement="MySql" identity="true" />
+		</table>
+		<table tableName="goods_info" enableCountByExample="false"
+			   enableUpdateByExample="false" enableDeleteByExample="false"
+			   enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="GoodsInfo" value="true" />
+			<!-- 需要插入时返回主键值，请将此属性打开，column值为主键的列明 -->
+			<generatedKey column="id" sqlStatement="MySql" identity="true" />
+		</table>
+		<table tableName="pay_order_info" enableCountByExample="false"
+			   enableUpdateByExample="false" enableDeleteByExample="false"
+			   enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="PayOrderInfo" value="true" />
+			<!-- 需要插入时返回主键值，请将此属性打开，column值为主键的列明 -->
+			<generatedKey column="id" sqlStatement="MySql" identity="true" />
+		</table>
+		<table tableName="system_user" enableCountByExample="false"
+			   enableUpdateByExample="false" enableDeleteByExample="false"
+			   enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="SystemUser" value="true" />
+			<!-- 需要插入时返回主键值，请将此属性打开，column值为主键的列明 -->
+			<generatedKey column="id" sqlStatement="MySql" identity="true" />
+		</table>
+		<table tableName="t_meun" enableCountByExample="false"
+			   enableUpdateByExample="false" enableDeleteByExample="false"
+			   enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="TMeun" value="true" />
+			<!-- 需要插入时返回主键值，请将此属性打开，column值为主键的列明 -->
+			<generatedKey column="id" sqlStatement="MySql" identity="true" />
+		</table>
+		<table tableName="t_role" enableCountByExample="false"
+			   enableUpdateByExample="false" enableDeleteByExample="false"
+			   enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="TRole" value="true" />
+			<!-- 需要插入时返回主键值，请将此属性打开，column值为主键的列明 -->
+			<generatedKey column="id" sqlStatement="MySql" identity="true" />
+		</table>
+		<table tableName="user_info" enableCountByExample="false"
+			   enableUpdateByExample="false" enableDeleteByExample="false"
+			   enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="UserInfo" value="true" />
+			<!-- 需要插入时返回主键值，请将此属性打开，column值为主键的列明 -->
+			<generatedKey column="id" sqlStatement="MySql" identity="true" />
+		</table>
+
+
+	</context>
+</generatorConfiguration>

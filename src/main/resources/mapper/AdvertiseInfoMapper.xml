@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.luxury.mapper.AdvertiseInfoMapper">
+  <resultMap id="BaseResultMap" type="com.luxury.model.AdvertiseInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="content_type" jdbcType="INTEGER" property="contentType" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="link_type" jdbcType="INTEGER" property="linkType" />
+    <result column="link_url" jdbcType="VARCHAR" property="linkUrl" />
+    <result column="push_date" jdbcType="VARCHAR" property="pushDate" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_date" jdbcType="VARCHAR" property="createDate" />
+    <result column="update_date" jdbcType="VARCHAR" property="updateDate" />
+    <result column="create_id" jdbcType="VARCHAR" property="createId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, content_type, content, link_type, link_url, push_date, sort, status, create_date, 
+    update_date, create_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from advertise_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from advertise_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.luxury.model.AdvertiseInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into advertise_info (name, content_type, content, 
+      link_type, link_url, push_date, 
+      sort, status, create_date, 
+      update_date, create_id)
+    values (#{name,jdbcType=VARCHAR}, #{contentType,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, 
+      #{linkType,jdbcType=INTEGER}, #{linkUrl,jdbcType=VARCHAR}, #{pushDate,jdbcType=VARCHAR}, 
+      #{sort,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{createDate,jdbcType=VARCHAR}, 
+      #{updateDate,jdbcType=VARCHAR}, #{createId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.luxury.model.AdvertiseInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into advertise_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        name,
+      </if>
+      <if test="contentType != null">
+        content_type,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="linkType != null">
+        link_type,
+      </if>
+      <if test="linkUrl != null">
+        link_url,
+      </if>
+      <if test="pushDate != null">
+        push_date,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="createId != null">
+        create_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="contentType != null">
+        #{contentType,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="linkType != null">
+        #{linkType,jdbcType=INTEGER},
+      </if>
+      <if test="linkUrl != null">
+        #{linkUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="pushDate != null">
+        #{pushDate,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null">
+        #{createId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.luxury.model.AdvertiseInfo">
+    update advertise_info
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="contentType != null">
+        content_type = #{contentType,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="linkType != null">
+        link_type = #{linkType,jdbcType=INTEGER},
+      </if>
+      <if test="linkUrl != null">
+        link_url = #{linkUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="pushDate != null">
+        push_date = #{pushDate,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null">
+        create_id = #{createId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.luxury.model.AdvertiseInfo">
+    update advertise_info
+    set name = #{name,jdbcType=VARCHAR},
+      content_type = #{contentType,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
+      link_type = #{linkType,jdbcType=INTEGER},
+      link_url = #{linkUrl,jdbcType=VARCHAR},
+      push_date = #{pushDate,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=VARCHAR},
+      create_id = #{createId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

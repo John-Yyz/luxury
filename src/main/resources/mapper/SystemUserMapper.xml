@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.luxury.mapper.SystemUserMapper">
+  <resultMap id="BaseResultMap" type="com.luxury.model.SystemUser">
+    <id column="manage_user_id" jdbcType="VARCHAR" property="manageUserId" />
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_account" jdbcType="VARCHAR" property="userAccount" />
+    <result column="user_phone" jdbcType="VARCHAR" property="userPhone" />
+    <result column="user_pwd" jdbcType="VARCHAR" property="userPwd" />
+    <result column="user_sex" jdbcType="INTEGER" property="userSex" />
+    <result column="role_type" jdbcType="INTEGER" property="roleType" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="openID" jdbcType="VARCHAR" property="openid" />
+    <result column="area" jdbcType="VARCHAR" property="area" />
+    <result column="create_date" jdbcType="VARCHAR" property="createDate" />
+    <result column="update_date" jdbcType="VARCHAR" property="updateDate" />
+    <result column="role_id" jdbcType="VARCHAR" property="roleId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    manage_user_id, id, real_name, user_name, user_account, user_phone, user_pwd, user_sex, 
+    role_type, status, openID, area, create_date, update_date, role_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from system_user
+    where manage_user_id = #{manageUserId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from system_user
+    where manage_user_id = #{manageUserId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.luxury.model.SystemUser">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into system_user (manage_user_id, real_name, user_name, 
+      user_account, user_phone, user_pwd, 
+      user_sex, role_type, status, 
+      openID, area, create_date, 
+      update_date, role_id)
+    values (#{manageUserId,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{userAccount,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR}, #{userPwd,jdbcType=VARCHAR}, 
+      #{userSex,jdbcType=INTEGER}, #{roleType,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{openid,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, #{createDate,jdbcType=VARCHAR}, 
+      #{updateDate,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.luxury.model.SystemUser">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into system_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="manageUserId != null">
+        manage_user_id,
+      </if>
+      <if test="realName != null">
+        real_name,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userAccount != null">
+        user_account,
+      </if>
+      <if test="userPhone != null">
+        user_phone,
+      </if>
+      <if test="userPwd != null">
+        user_pwd,
+      </if>
+      <if test="userSex != null">
+        user_sex,
+      </if>
+      <if test="roleType != null">
+        role_type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="openid != null">
+        openID,
+      </if>
+      <if test="area != null">
+        area,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="manageUserId != null">
+        #{manageUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userAccount != null">
+        #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null">
+        #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null">
+        #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null">
+        #{userSex,jdbcType=INTEGER},
+      </if>
+      <if test="roleType != null">
+        #{roleType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="openid != null">
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.luxury.model.SystemUser">
+    update system_user
+    <set>
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      <if test="realName != null">
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userAccount != null">
+        user_account = #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null">
+        user_phone = #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null">
+        user_pwd = #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null">
+        user_sex = #{userSex,jdbcType=INTEGER},
+      </if>
+      <if test="roleType != null">
+        role_type = #{roleType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="openid != null">
+        openID = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where manage_user_id = #{manageUserId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.luxury.model.SystemUser">
+    update system_user
+    set id = #{id,jdbcType=INTEGER},
+      real_name = #{realName,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_account = #{userAccount,jdbcType=VARCHAR},
+      user_phone = #{userPhone,jdbcType=VARCHAR},
+      user_pwd = #{userPwd,jdbcType=VARCHAR},
+      user_sex = #{userSex,jdbcType=INTEGER},
+      role_type = #{roleType,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      openID = #{openid,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=VARCHAR},
+      role_id = #{roleId,jdbcType=VARCHAR}
+    where manage_user_id = #{manageUserId,jdbcType=VARCHAR}
+  </update>
+</mapper>
