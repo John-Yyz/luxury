@@ -8,6 +8,23 @@
 
 	<context id="MySQL2Tables" targetRuntime="MyBatis3"
 			 defaultModelType="flat">
+		<!--<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+		<plugin type="org.mybatis.generator.plugins.MybatisCriteriaPlugin" />
+		<plugin type="org.mybatis.generator.plugins.MybatisServicePlugin">
+			<property name="targetPackage" value="com.luxury.service" />
+			<property name="implementationPackage" value="com.luxury.service.impl" />
+			<property name="targetProject" value="../luxury/src" />
+			<property name="enableInsert" value="true" />
+			<property name="enableUpdateByExampleSelective" value="true" />
+			<property name="enableInsertSelective" value="true" />
+			<property name="enableUpdateByPrimaryKey" value="true" />
+			<property name="enableDeleteByPrimaryKey" value="true" />
+			<property name="enableDeleteByExample" value="true" />
+			<property name="enableUpdateByPrimaryKeySelective" value="true" />
+			<property name="enableUpdateByExample" value="true" />
+		</plugin>-->
+
+
 		<commentGenerator>
 			<property name="suppressDate" value="true" />
 			<property name="suppressAllComments" value="true" />
@@ -47,10 +64,21 @@
 		</sqlMapGenerator>
 
 		<!--生成Dao类存放位置 -->
-		<javaClientGenerator type="XMLMAPPER"
+		<!--<javaClientGenerator type="XMLMAPPER"
 							 targetPackage="com.luxury.mapper" targetProject="src/main/java">
 			<property name="enableSubPackages" value="true" />
-		</javaClientGenerator>
+		</javaClientGenerator>-->
+
+		<!--生成service,serviceImpl-->
+		<!--<javaServiceGenerator targetPackage="com.luxury.service" targetProject="src/main/java"
+							  implementationPackage="com.luxury.service">
+			<property name="superClass" value="com.shsoft.platform.ctrl.BaseController"></property>
+		</javaServiceGenerator>
+
+		&lt;!&ndash;生成controller&ndash;&gt;
+		<javaControllerGenerator targetPackage="com.luxury.controller" targetProject="src/main/java">
+			<property name="superClass" value="com.shsoft.platform.ctrl.BaseController"></property>
+		</javaControllerGenerator>-->
 
 		<!--生成对应表及类名 -->
 		<table tableName="advertise_info" enableCountByExample="false"
@@ -141,13 +169,6 @@
 			   enableUpdateByExample="false" enableDeleteByExample="false"
 			   enableSelectByExample="false" selectByExampleQueryId="false">
 			<property name="TRole" value="true" />
-			<!-- 需要插入时返回主键值，请将此属性打开，column值为主键的列明 -->
-			<generatedKey column="id" sqlStatement="MySql" identity="true" />
-		</table>
-		<table tableName="user_info" enableCountByExample="false"
-			   enableUpdateByExample="false" enableDeleteByExample="false"
-			   enableSelectByExample="false" selectByExampleQueryId="false">
-			<property name="UserInfo" value="true" />
 			<!-- 需要插入时返回主键值，请将此属性打开，column值为主键的列明 -->
 			<generatedKey column="id" sqlStatement="MySql" identity="true" />
 		</table>

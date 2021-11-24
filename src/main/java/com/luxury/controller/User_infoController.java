@@ -1,23 +1,22 @@
 package com.luxury.controller;
 
 import com.luxury.model.User_info;
-import com.luxury.service.User_infoService;
+import com.luxury.service.User_infoServiceI;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Api(tags = "用户信息管理")
 @RestController
 @RequestMapping("/user")
 public class User_infoController {
 
-    @Resource
-    private User_infoService userService;
+    @Autowired
+    private User_infoServiceI userService;
 
     @ApiOperation("测试接口")
     @GetMapping("/hello")
@@ -29,7 +28,6 @@ public class User_infoController {
     @PostMapping("/addUser")
     public int addUser( @RequestBody User_info user){
         user.setCreate_time(new Date());
-        user.setId(UUID.randomUUID().toString());
         return userService.addUser(user);
     }
 
