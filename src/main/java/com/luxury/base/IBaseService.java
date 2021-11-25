@@ -1,6 +1,5 @@
 package com.luxury.base;
 
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.luxury.utils.JsonResult;
 
 import java.io.Serializable;
@@ -10,7 +9,7 @@ import java.util.Map;
  *
  * @param <T>
  */
-public interface IBaseService<T> extends IService<T> {
+public interface IBaseService<T>{
 
     /**
      * 根据查询条件获取数据列表

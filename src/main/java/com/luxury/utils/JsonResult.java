@@ -1,4 +1,6 @@
 package com.luxury.utils;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
@@ -9,17 +11,22 @@ import java.io.Serializable;
  * @author yuyz
  * @date 2021/11/28
  */
+@ApiModel(value = "com-luxury-utils-JsonResult")
 public class JsonResult implements Serializable {
     // 错误码
+    @ApiModelProperty(value = "错误码")
     private Integer code = 0;
 
     // 提示语
+    @ApiModelProperty(value = "提示语")
     private String msg = "操作成功";
 
     // 返回对象
+    @ApiModelProperty(value = "返回对象")
     private Object data;
 
     // 数据总数
+    @ApiModelProperty(value = "数据总数")
     private long count;
 
     public Integer getCode() {

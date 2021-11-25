@@ -1,7 +1,6 @@
 package com.luxury.config;
 
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
@@ -23,7 +22,6 @@ public class CommonConfig {
      *
      * @param url 域名地址
      */
-    @Value("${javaweb.image-url}")
     public void setImageURL(String url) {
         imageURL = url;
     }
@@ -33,7 +31,6 @@ public class CommonConfig {
      *
      * @param debug
      */
-    @Value("${javaweb.app-debug}")
     public void setAppDebug(boolean debug) {
         appDebug = debug;
     }

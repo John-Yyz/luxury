@@ -8,6 +8,7 @@
 
 	<context id="MySQL2Tables" targetRuntime="MyBatis3"
 			 defaultModelType="flat">
+		<property name="javaFileEncoding" value="UTF-8"/>
 		<!--<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
 		<plugin type="org.mybatis.generator.plugins.MybatisCriteriaPlugin" />
 		<plugin type="org.mybatis.generator.plugins.MybatisServicePlugin">
@@ -30,9 +31,10 @@
 			<property name="suppressAllComments" value="true" />
 		</commentGenerator>
 		<!--数据库链接地址账号密码 -->
-		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+		<jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
 						connectionURL="jdbc:mysql://localhost:3306/luxury?serverTimezone=Asia/Shanghai"
 						userId="root" password="123456">
+			<property name="remarksReporting" value="true"></property>
 		</jdbcConnection>
 
 		<!-- true：使用BigDecimal对应DECIMAL和 NUMERIC数据类型 -->
@@ -58,10 +60,10 @@
 		</javaModelGenerator>
 
 		<!--生成映射文件存放位置 -->
-		<sqlMapGenerator targetPackage="mapper"
+		<!--<sqlMapGenerator targetPackage="mapper"
 						 targetProject="src/main/resources">
 			<property name="enableSubPackages" value="true" />
-		</sqlMapGenerator>
+		</sqlMapGenerator>-->
 
 		<!--生成Dao类存放位置 -->
 		<!--<javaClientGenerator type="XMLMAPPER"

@@ -184,18 +184,4 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T extends BaseEntity> exte
         }
         return JsonResult.success("删除成功");
     }
-
-    /**
-     * 设置状态
-     *
-     * @param entity 实体对象
-     * @return
-     */
-    @Override
-    public JsonResult setStatus(T entity) {
-        if (CommonConfig.appDebug) {
-            return JsonResult.error("演示环境禁止操作");
-        }
-        return this.update(entity);
-    }
 }
