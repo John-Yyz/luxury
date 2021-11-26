@@ -6,6 +6,7 @@ import com.luxury.model.EnterpriseUser;
 import com.luxury.service.IEnterpriseUserService;
 import com.luxury.utils.JsonResult;
 import com.luxury.utils.StringUtils;
+import com.luxury.utils.UUIDUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -127,9 +128,11 @@ public class EnterpriseUserServiceImpl implements IEnterpriseUserService {
             logger.info("参数错误");
             return JsonResult.error("参数错误");
         }
+        String code = UUIDUtil.createCode();
+        enterpriseUser.setUserId(code);
         int flag = enterpriseUserMapper.insertSelective(enterpriseUser);
         if(flag > 0){
-            return JsonResult.success("注册成功");
+            return JsonResult.success("注册成功",enterpriseUser);
         }
         return JsonResult.error("注册失败");
     }
@@ -148,7 +151,7 @@ public class EnterpriseUserServiceImpl implements IEnterpriseUserService {
         }
         int flag = enterpriseUserMapper.updateByPrimaryKeySelective(entity);
         if(flag > 0){
-            return JsonResult.success("修改成功");
+            return JsonResult.success("修改成功",entity);
         }
         return JsonResult.error("修改失败");
     }

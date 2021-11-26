@@ -38,4 +38,27 @@ public class EnterpriseUserController {
     public JsonResult checkUserIsExist(@RequestBody EnterpriseUser enterpriseUser){
         return enterpriseUserService.checkUserIsExist(enterpriseUser);
     }
+
+    /**
+     * 注册用户
+     * @param enterpriseUser
+     * @return
+     */
+    @PostMapping(value = "regUser")
+    @ApiOperation(value = "注册用户", notes = "注册用户")
+    public JsonResult regUser(@RequestBody EnterpriseUser enterpriseUser){
+        return enterpriseUserService.add(enterpriseUser);
+    }
+
+
+    /**
+     * 修改用户
+     * @param enterpriseUser
+     * @return
+     */
+    @PostMapping(value = "updateUser")
+    @ApiOperation(value = "修改用户", notes = "修改用户")
+    public JsonResult updateUser(@RequestBody EnterpriseUser enterpriseUser){
+        return enterpriseUserService.update(enterpriseUser);
+    }
 }
