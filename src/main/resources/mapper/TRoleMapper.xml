@@ -13,6 +13,9 @@
     <result column="rights" jdbcType="VARCHAR" property="rights" />
     <result column="sort" jdbcType="INTEGER" property="sort" />
   </resultMap>
+  <sql id="Base_Column_List">
+    id, role_id, role_name, rights, sort
+  </sql>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--
       WARNING - @mbg.generated

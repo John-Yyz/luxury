@@ -17,6 +17,9 @@
     <result column="district_name" jdbcType="VARCHAR" property="districtName" />
     <result column="status" jdbcType="INTEGER" property="status" />
   </resultMap>
+  <sql id="Base_Column_List">
+    id, area_id, province, province_name, city, city_name, district, district_name, status
+  </sql>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--
       WARNING - @mbg.generated

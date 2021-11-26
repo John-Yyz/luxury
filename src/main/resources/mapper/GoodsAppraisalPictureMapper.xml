@@ -14,6 +14,9 @@
     <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
     <result column="img_status" jdbcType="INTEGER" property="imgStatus" />
   </resultMap>
+  <sql id="Base_Column_List">
+    id, assess_id, assess_type, type, img_url, img_status
+  </sql>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--
       WARNING - @mbg.generated

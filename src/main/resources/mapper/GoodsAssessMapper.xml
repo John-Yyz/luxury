@@ -22,6 +22,10 @@
     <result column="all_type" jdbcType="INTEGER" property="allType" />
     <result column="area" jdbcType="VARCHAR" property="area" />
   </resultMap>
+  <sql id="Base_Column_List">
+    assess_id, id, goods_id, user_id, assess_price, apply_date, assess_date, clinch_status,
+    clinch_price, status, system_user, house_keeper, all_type, area
+  </sql>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     <!--
       WARNING - @mbg.generated

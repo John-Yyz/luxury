@@ -23,6 +23,10 @@
     <result column="update_date" jdbcType="VARCHAR" property="updateDate" />
     <result column="role_id" jdbcType="VARCHAR" property="roleId" />
   </resultMap>
+  <sql id="Base_Column_List">
+    manage_user_id, id, real_name, user_name, user_account, user_phone, user_pwd, user_sex,
+    role_type, status, openID, area, create_date, update_date, role_id
+  </sql>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     <!--
       WARNING - @mbg.generated

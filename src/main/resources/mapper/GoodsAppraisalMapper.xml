@@ -26,6 +26,11 @@
     <result column="all_type" jdbcType="INTEGER" property="allType" />
     <result column="area" jdbcType="VARCHAR" property="area" />
   </resultMap>
+  <sql id="Base_Column_List">
+    id, appraisal_id, goods_id, user_id, apply_date, appraisal_date, authentic_type,
+    have_flag, certificate, appraisal_price, discount, clinch_type, clinch_price, status,
+    system_user, house_keeper, all_type, area
+  </sql>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--
       WARNING - @mbg.generated

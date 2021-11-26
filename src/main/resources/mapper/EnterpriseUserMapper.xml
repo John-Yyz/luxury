@@ -24,6 +24,11 @@
     <result column="tiktok_openid" jdbcType="VARCHAR" property="tiktokOpenid" />
     <result column="unionID" jdbcType="VARCHAR" property="unionid" />
   </resultMap>
+  <sql id="Base_Column_List">
+    user_id, id, user_name, nick_name, user_mobile, user_img, weixin_openid, user_pwd,
+    user_source, reg_date, user_state, enterprise_type, small_openid, ali_openid, tiktok_openid,
+    unionID
+  </sql>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     <!--
       WARNING - @mbg.generated

@@ -21,6 +21,10 @@
     <result column="order_pay_type" jdbcType="INTEGER" property="orderPayType" />
     <result column="order_desc" jdbcType="VARCHAR" property="orderDesc" />
   </resultMap>
+  <sql id="Base_Column_List">
+    id, order_no, user_id, enterprise_id, order_status, trade_no, order_money, refund_money,
+    order_date, refund_date, order_source, order_pay_type, order_desc
+  </sql>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--
       WARNING - @mbg.generated

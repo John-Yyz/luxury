@@ -18,6 +18,10 @@
     <result column="create_date" jdbcType="VARCHAR" property="createDate" />
     <result column="update_date" jdbcType="VARCHAR" property="updateDate" />
   </resultMap>
+  <sql id="Base_Column_List">
+    id, toll_type, charge_price, free, object_type, user_id, system_user, status, create_date,
+    update_date
+  </sql>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--
       WARNING - @mbg.generated

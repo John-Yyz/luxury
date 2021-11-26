@@ -14,6 +14,9 @@
     <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
     <result column="sort" jdbcType="INTEGER" property="sort" />
   </resultMap>
+  <sql id="Base_Column_List">
+    id, menu_id, menu_name, menu_url, parent_id, sort
+  </sql>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--
       WARNING - @mbg.generated

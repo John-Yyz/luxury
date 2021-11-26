@@ -19,6 +19,10 @@
     <result column="audit_status" jdbcType="INTEGER" property="auditStatus" />
     <result column="audit_reason" jdbcType="VARCHAR" property="auditReason" />
   </resultMap>
+  <sql id="Base_Column_List">
+    enterprise_id, id, user_id, user_name, enterprise_name, license_number, business_license,
+    create_date, status, audit_status, audit_reason
+  </sql>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     <!--
       WARNING - @mbg.generated

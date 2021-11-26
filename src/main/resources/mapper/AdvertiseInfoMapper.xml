@@ -20,6 +20,10 @@
     <result column="update_date" jdbcType="VARCHAR" property="updateDate" />
     <result column="create_id" jdbcType="VARCHAR" property="createId" />
   </resultMap>
+  <sql id="Base_Column_List">
+    id, name, content_type, content, link_type, link_url, push_date, sort, status, create_date,
+    update_date, create_id
+  </sql>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--
       WARNING - @mbg.generated
