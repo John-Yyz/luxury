@@ -52,10 +52,9 @@
 			<property name="enableSubPackages" value="true"/>
 		</javaClientGenerator>
 		<!--生成对应表及类名-->
-		<table tableName="advertise_info" domainObjectName="AdvertiseInfo"
+		<!--<table tableName="advertise_info" domainObjectName="AdvertiseInfo"
 			   enableCountByExample="false"
 			   enableUpdateByExample="false"
-			   en
 			   enableDeleteByExample="false"
 			   enableSelectByExample="false"
 			   selectByExampleQueryId="false"
@@ -138,6 +137,13 @@
 			   selectByExampleQueryId="false"
 		/>
 		<table tableName="t_role" domainObjectName="TRole"
+			   enableCountByExample="false"
+			   enableUpdateByExample="false"
+			   enableDeleteByExample="false"
+			   enableSelectByExample="false"
+			   selectByExampleQueryId="false"
+		/>-->
+		<table tableName="user_source" domainObjectName="UserSource"
 			   enableCountByExample="false"
 			   enableUpdateByExample="false"
 			   enableDeleteByExample="false"

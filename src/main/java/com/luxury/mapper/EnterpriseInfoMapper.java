@@ -2,6 +2,7 @@ package com.luxury.mapper;
 
 import com.luxury.model.EnterpriseInfo;
 import java.util.List;
+import java.util.Map;
 
 public interface EnterpriseInfoMapper {
     int deleteByPrimaryKey(String enterpriseId);
@@ -17,4 +18,6 @@ public interface EnterpriseInfoMapper {
     int updateByPrimaryKeySelective(EnterpriseInfo record);
 
     int updateByPrimaryKey(EnterpriseInfo record);
+
+    EnterpriseInfo selectBySelect(Map<String,Object> params);
 }

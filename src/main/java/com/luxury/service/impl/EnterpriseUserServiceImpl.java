@@ -1,16 +1,31 @@
 package com.luxury.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.luxury.base.BaseQuery;
+import com.luxury.mapper.EnterpriseInfoMapper;
 import com.luxury.mapper.EnterpriseUserMapper;
+import com.luxury.mapper.UserSourceMapper;
+import com.luxury.model.EnterpriseInfo;
 import com.luxury.model.EnterpriseUser;
+import com.luxury.model.UserSource;
+import com.luxury.request.CheckWechatRegistReq;
+import com.luxury.request.OuthSourceEnt;
+import com.luxury.response.EnterpriseUserResp;
+import com.luxury.service.AppletWxService;
 import com.luxury.service.IEnterpriseUserService;
+import com.luxury.service.ReqGetService;
+import com.luxury.service.WechatService;
+import com.luxury.utils.ErrorCode;
 import com.luxury.utils.JsonResult;
 import com.luxury.utils.StringUtils;
 import com.luxury.utils.UUIDUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.net.www.http.HttpClient;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -25,12 +40,28 @@ import java.util.Objects;
  * @date 2021/11/25 2:50
  */
 @Service(value = "enterpriseUserService")
+@Slf4j
 public class EnterpriseUserServiceImpl implements IEnterpriseUserService {
 
     Logger logger = LoggerFactory.getLogger(EnterpriseUserServiceImpl.class);
 
     @Autowired(required = false)
     EnterpriseUserMapper enterpriseUserMapper;
+
+    @Autowired(required = false)
+    EnterpriseInfoMapper enterpriseInfoMapper;
+
+    @Autowired(required = false)
+    ReqGetService reqGetService;
+
+    @Autowired
+    WechatService wechatService;
+
+    @Autowired
+    AppletWxService appletWxService;
+
+    @Autowired(required = false)
+    UserSourceMapper userSourceMapper;
 
     /**
      * 根据查询条件获取数据列表
@@ -68,20 +99,92 @@ public class EnterpriseUserServiceImpl implements IEnterpriseUserService {
     /**
      * 检查用户是否存在
      *
-     * @param enterpriseUser
+     * @param checkWechatRegistReq
      * @return
      */
     @Override
-    public JsonResult checkUserIsExist(EnterpriseUser enterpriseUser) {
-        if(Objects.isNull(enterpriseUser)){
+    public JsonResult checkUserIsExist(CheckWechatRegistReq checkWechatRegistReq, OuthSourceEnt outhSourceEnt) {
+        if(Objects.isNull(checkWechatRegistReq)){
             logger.info("参数错误");
             return JsonResult.error("参数错误");
         }
-        if(StringUtils.isBlank(enterpriseUser.getUnionid()) && StringUtils.isBlank(enterpriseUser.getUserMobile())){
+
+        // 请求用户来源（1=微信；2=Android； 3=IOS；4=微信小程序; 5=支付宝小程序；6=抖音小程序；7=其他；100=官方平台；101=代理商平台；102=监控者平台；）
+        Integer platype = outhSourceEnt.getPlatype();
+        if (null != platype && platype == 0) {
+            return JsonResult.error(ErrorCode.FAILED.getCode(), "平台无权限操作");
+        }
+
+        if(Objects.isNull(checkWechatRegistReq.getUserSource()) && StringUtils.isBlank(checkWechatRegistReq.getOpenId())){
             logger.info("参数错误");
             return JsonResult.error("参数错误");
         }
-        Map<String,Object> params = new HashMap<>(1);
+
+        if(checkWechatRegistReq.getUserSource() == 0){
+            logger.info("参数错误");
+            return JsonResult.error("参数错误");
+        }
+
+        String sessionKey = null;
+        String unionid = null;
+        String openId = null;
+        Map<String, Object> result = null;
+        switch (platype) {
+            case 1:
+                result = wechatService.getWxResult(checkWechatRegistReq.getOpenId());
+                if (result == null || result.isEmpty()) {
+                    Map<String, Object> map = new HashMap<String, Object>();
+                    map.put("openId", checkWechatRegistReq.getOpenId());
+                    return JsonResult.error(ErrorCode.USER_NOT_EXIST);
+                }
+
+                unionid = result.get("unionid") == null ? null : (String) result.get("unionid");
+
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                result = appletWxService.getAppletWx(checkWechatRegistReq.getOpenId());
+                if (result == null || result.isEmpty()) {
+                    return JsonResult.error("获取用户基本信息异常");
+                }
+
+                openId = (String) result.get("openId");
+
+                sessionKey = result.get("sessionKey") == null ? null : (String) result.get("sessionKey");
+
+                unionid = result.get("unionid") == null ? null : (String) result.get("unionid");
+                break;
+            case 5:
+                break;
+            default:
+                return JsonResult.error("无操作权限");
+        }
+
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("openId", openId);
+        params.put("userSource", 1);
+        UserSource userSourceEnt = userSourceMapper.findUserIsRegistByOpenId(params);
+        if (Objects.isNull(userSourceEnt)) {
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("openId", openId);
+            map.put("sessionKey", sessionKey);
+            return JsonResult.error(10004,"该用户不存在", map);
+        }
+
+        String userId = userSourceEnt.getUserId();
+        Map<String,Object> param = new HashMap<>(1);
+        param.put("userId",userId);
+        EnterpriseUser enterpriseUser = enterpriseUserMapper.selectByParams(param);
+        if (Objects.isNull(enterpriseUser)) {
+            log.error("既然出现，来源表中有用户，信息表中无数据, 尽快排查 ---》 " + openId);
+            return JsonResult.error(ErrorCode.THE_USER_IS_FREEZE.getCode(), "您的账号已被冻结，请联系非洗不可");
+        }
+
+
+        params.clear();
         if(StringUtils.isNotBlank(enterpriseUser.getUnionid())){
             //通过unionId获取用户信息
             params.put("unionid",enterpriseUser.getUnionid());
@@ -114,6 +217,110 @@ public class EnterpriseUserServiceImpl implements IEnterpriseUserService {
                 return JsonResult.success("用户已存在");
             }
         }
+    }
+
+    /**
+     * 用戶信息
+     *
+     * @param enterpriseUser
+     * @return
+     */
+    @Override
+    public JsonResult getUserInfo(EnterpriseUser enterpriseUser) {
+        if(Objects.isNull(enterpriseUser)){
+            return JsonResult.error(ErrorCode.PARAM_ERROR);
+        }
+
+        if(StringUtils.isBlank(enterpriseUser.getUserId())){
+            return JsonResult.error(ErrorCode.PARAM_ERROR);
+        }
+
+        Map<String,Object> params = new HashMap<>(1);
+        params.put("userId",enterpriseUser.getUserId());
+        enterpriseUser = enterpriseUserMapper.selectByParams(params);
+        if(Objects.isNull(enterpriseUser)){
+            return JsonResult.error(ErrorCode.USER_NOT_EXIST);
+        }
+        EnterpriseUserResp enterpriseUserResp = new EnterpriseUserResp();
+        BeanUtils.copyProperties(enterpriseUser,enterpriseUserResp);
+        EnterpriseInfo enterpriseInfo = enterpriseInfoMapper.selectBySelect(params);
+        if(!Objects.isNull(enterpriseInfo)){
+            enterpriseUserResp.setAuditStatus(enterpriseInfo.getAuditStatus());
+        }
+        return JsonResult.success("操作成功",enterpriseUserResp);
+    }
+
+    /**
+     * 获取微信小程序openId
+     *
+     * @param appId
+     * @param appSecret
+     * @param jscode
+     * @return
+     */
+    @Override
+    public Map<String,Object> getWechatAppletUserOpenid(String appId, String appSecret, String jscode) {
+        // 授权（必填）
+        String grant_type = "authorization_code";
+
+        // URL
+        String requestUrl = "https://api.weixin.qq.com/sns/jscode2session";
+
+        // 请求参数
+        String params = "appid=" + appId + "&secret=" + appSecret + "&js_code=" + jscode + "&grant_type=" + grant_type;
+
+        String openId = null;
+
+        String sessionKey = null;
+
+        String unionid = null;
+
+        try {
+
+            // 发送请求
+            requestUrl = requestUrl + "?" + params;
+            String data = reqGetService.req(requestUrl, null);
+
+            // 解析相应内容（转换成json对象）
+            JSONObject json = null;
+            if (StringUtils.isNotBlank(data)) {
+                json = JSONObject.parseObject(data);
+            } else {
+                logger.error("请求微信获取不到openid，微信返回的结果：" + data);
+                return null;
+            }
+
+            if (Objects.isNull(json)) {
+                return null;
+            }
+
+            Object openid = json.get("openid");
+            if (Objects.isNull(openid)) {
+                logger.error("获取不到openid，微信返回的结果：" + data);
+                return null;
+            }
+
+            openId = String.valueOf(openid);
+
+            Object session_key = json.get("session_key");
+            if (!Objects.isNull(session_key)) {
+                sessionKey = String.valueOf(session_key);
+            }
+
+            Object unionid_id = json.get("unionid");
+            if (!Objects.isNull(unionid_id)) {
+                unionid = String.valueOf(unionid_id);
+            }
+
+        } catch (Exception e) {
+            logger.error("请求获取微信openid出错", e);
+        }
+
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("openId", openId);
+        result.put("sessionKey", sessionKey);
+        result.put("unionid", unionid);
+        return result;
     }
 
     /**

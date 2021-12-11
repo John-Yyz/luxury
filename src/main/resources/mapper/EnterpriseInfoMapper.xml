@@ -193,4 +193,22 @@
     create_date, status, audit_status, audit_reason
     from enterprise_info
   </select>
+
+  <select id="selectBySelect" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from enterprise_info
+    <where>
+    1=1
+      <if test="userId != null and userId != ''">
+        AND user_id = #{userId,jdbcType=VARCHAR}
+      </if>
+      <if test="status != null">
+        AND user_id = #{userId,jdbcType=INTEGER}
+      </if>
+      <if test="auditStatus != null">
+        AND audit_status = #{auditStatus,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
 </mapper>

@@ -133,4 +133,15 @@ where goods_id = #{goodsId,jdbcType=VARCHAR}
     select goods_id, id, goods_name, goods_type, picture_url, status
     from goods_info
   </select>
+
+  <select id="selectAllByParams" resultMap="BaseResultMap" parameterType="map">
+    select goods_id, id, goods_name, goods_type, picture_url, status
+    from goods_info
+    <where>
+    1=1
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
 </mapper>

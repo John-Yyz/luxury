@@ -2,8 +2,12 @@ package com.luxury.service;
 
 import com.luxury.base.IBaseService;
 import com.luxury.model.EnterpriseUser;
+import com.luxury.request.CheckWechatRegistReq;
+import com.luxury.request.OuthSourceEnt;
 import com.luxury.utils.JsonResult;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 /**
  * 描述：
@@ -17,9 +21,25 @@ public interface IEnterpriseUserService extends IBaseService<EnterpriseUser> {
 
     /**
      * 检查用户是否存在
+     * @param checkWechatRegistReq
+     * @return
+     */
+    JsonResult checkUserIsExist(CheckWechatRegistReq checkWechatRegistReq, OuthSourceEnt outhSourceEnt);
+
+    /**
+     * 用戶信息
      * @param enterpriseUser
      * @return
      */
-    JsonResult checkUserIsExist(EnterpriseUser enterpriseUser);
+    JsonResult getUserInfo(EnterpriseUser enterpriseUser);
+
+    /**
+     * 获取微信小程序openId
+     * @param appId
+     * @param appSecret
+     * @param jscode
+     * @return
+     */
+    Map<String,Object> getWechatAppletUserOpenid(String appId, String appSecret, String jscode);
 
 }

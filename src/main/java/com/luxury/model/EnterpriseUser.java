@@ -3,14 +3,20 @@ package com.luxury.model;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 
 @ApiModel(value = "com-luxury-model-EnterpriseUser")
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @TableName(value = "enterprise_user")
-public class EnterpriseUser {
+public class EnterpriseUser implements Serializable {
     /**
      * 用户编号
      */
