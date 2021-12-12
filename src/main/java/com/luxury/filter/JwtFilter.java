@@ -50,14 +50,6 @@ public class JwtFilter extends GenericFilter{
             if(reqUrl.contains("/null")){
                 reqUrl.replace("/null","");
             }
-            // Enumeration<String> enumeration =
-            // requestWrapper.getHeaderNames();
-            // while (enumeration.hasMoreElements()) {
-            // String headerName = (String) enumeration.nextElement();
-            // String headerValue = request.getHeader(headerName);// 取出头信息内容
-            // System.out.println(reqUrl + " ---> 头部信息---》 " + headerName + "
-            // ---> 值---》 " + headerValue + "\r\n");
-            // }
 
             if (reqUrl.indexOf("/outh/") == 0) {
 
