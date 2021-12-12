@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.luxury.mapper.UserSourceMapper">
+  <resultMap id="BaseResultMap" type="com.luxury.model.UserSource">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="user_mobile" jdbcType="VARCHAR" property="userMobile" />
+    <result column="user_source" jdbcType="SMALLINT" property="userSource" />
+    <result column="obj_ids" jdbcType="VARCHAR" property="objIds" />
+    <result column="user_token" jdbcType="VARCHAR" property="userToken" />
+    <result column="wx_union_id" jdbcType="VARCHAR" property="wxUnionId" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="update_time" jdbcType="VARCHAR" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id,user_mobile, user_source, obj_ids, user_token,wx_union_id,create_time,update_time
+  </sql>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_source
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.luxury.model.UserSource">
+    insert into user_source (id, user_id,user_mobile, user_source,
+      obj_ids, user_token, wx_union_id, 
+      create_time, update_time)
+    values (#{id,jdbcType=INTEGER},#{userId,jdbcType=VARCHAR}, #{userMobile,jdbcType=VARCHAR}, #{userSource,jdbcType=SMALLINT},
+      #{objIds,jdbcType=VARCHAR}, #{userToken,jdbcType=VARCHAR}, #{wxUnionId,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.luxury.model.UserSource">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user_source
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null and userId != ''">
+        user_id,
+      </if>
+      <if test="userMobile != null and userMobile != ''">
+        user_mobile,
+      </if>
+      <if test="userSource != null">
+        user_source,
+      </if>
+      <if test="objIds != null and objIds != ''">
+        obj_ids,
+      </if>
+      <if test="userToken != null and userToken != ''">
+        user_token,
+      </if>
+      <if test="wxUnionId != null and wxUnionId != ''">
+        wx_union_id,
+      </if>
+      <if test="createTime != null and createTime != ''">
+        create_time,
+      </if>
+      <if test="updateTime != null and updateTime != ''">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null and userId != ''">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null and userMobile != ''">
+        #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="userSource != null">
+        #{userSource,jdbcType=INTEGER},
+      </if>
+      <if test="objIds != null and objIds != ''">
+        #{objIds,jdbcType=VARCHAR},
+      </if>
+      <if test="userToken != null and userToken != ''">
+        #{userToken,jdbcType=VARCHAR},
+      </if>
+      <if test="wxUnionId != null and wxUnionId != ''">
+        #{wxUnionId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null and createTime != ''">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null and updateTime != ''">
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.luxury.model.UserSource">
+    update user_source
+    set user_id = #{userId,jdbcType=VARCHAR},
+      user_mobile = #{userMobile,jdbcType=VARCHAR},
+      user_source = #{userSource,jdbcType=SMALLINT},
+      obj_ids = #{objIds,jdbcType=VARCHAR},
+      user_token = #{userToken,jdbcType=VARCHAR},
+      wx_union_id = #{wxUnionId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, user_id,user_mobile, user_source, obj_ids, user_token, wx_union_id, create_time,
+    update_time
+    from user_source
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id,user_id, user_mobile, user_source, obj_ids, user_token, wx_union_id, create_time,
+    update_time
+    from user_source
+  </select>
+
+  <select id="selectByUserMobileAndSource" parameterType="map" resultMap="BaseResultMap">
+    select id,user_id, user_mobile, user_source, obj_ids, user_token, wx_union_id, create_time,
+    update_time
+    from user_source
+    where user_mobile = #{userMobile,jdbcType=VARCHAR} AND user_source = #{userSource,jdbcType=INTEGER}
+  </select>
+
+  <select id="findUserIsRegistByOpenId" parameterType="map" resultMap="BaseResultMap">
+    select id,user_id, user_mobile, user_source, obj_ids, user_token, wx_union_id, create_time,
+    update_time
+    from user_source
+    where obj_ids = #{openId,jdbcType=VARCHAR} AND user_source = #{userSource,jdbcType=INTEGER}
+  </select>
+
+  <select id="findUserIsRegistByUnionid" parameterType="map" resultMap="BaseResultMap">
+    select id,user_id, user_mobile, user_source, obj_ids, user_token, wx_union_id, create_time,
+    update_time
+    from user_source
+    where wx_union_id = #{unionId,jdbcType=VARCHAR} AND user_source = #{userSource,jdbcType=INTEGER}
+  </select>
+
+</mapper>
