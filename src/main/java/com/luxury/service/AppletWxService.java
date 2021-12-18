@@ -17,4 +17,6 @@ public interface AppletWxService {
      * @return
      */
     Map<String, Object> getAppletWx(String jscode);
+
+    Map<String, Object> getWI(String jscode);
 }

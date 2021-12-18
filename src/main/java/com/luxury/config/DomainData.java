@@ -14,9 +14,9 @@ public class DomainData {
     // token过期时间(30天)
     public final static long USERTTLMILLIS = 86400000 * 30;
 
-    public final static String appid = "wx39041e4b5e1dd0b1";
+    public final static String appid = "";
 
-    public final static String appSecret = "a34ff6e31915800d497807397a09a53e";
+    public final static String appSecret = "";
 
     public final static Integer isOffcialEnv = 0;
 

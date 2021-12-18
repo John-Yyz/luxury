@@ -123,4 +123,31 @@ public class AppletWxServiceImpl implements AppletWxService {
         result.put("unionid", unionid);
         return result;
     }
+
+
+    public Map<String, Object> getWI(String jscode) {
+
+        String appId = DomainData.appid;
+
+        String appSecret = DomainData.appSecret;
+
+        // 请求微信小程序获取openId
+        Map<String, Object> result = enterpriseUserService.getWechatAppletUserOpenid(appId, appSecret, jscode);
+        if (result == null || result.isEmpty())
+            return null;
+
+        String openId = result.get("openId") == null ? "" : (String) result.get("openId");
+        if (StringUtils.isBlank(openId))
+            return null;
+
+        String sessionKey = result.get("sessionKey") == null ? "" : (String) result.get("sessionKey");
+
+        String unionid = result.get("unionid") == null ? "" : (String) result.get("unionid");
+
+        result.put("openId", openId);
+        result.put("sessionKey", sessionKey);
+        result.put("unionid", unionid);
+        return result;
+
+    }
 }

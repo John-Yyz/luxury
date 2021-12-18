@@ -6,6 +6,7 @@ import com.luxury.model.EnterpriseUser;
 import com.luxury.request.CheckWechatRegistReq;
 import com.luxury.request.HttpReqBodyBasic;
 import com.luxury.request.OuthSourceEnt;
+import com.luxury.request.WeChatRegisterReq;
 import com.luxury.service.IEnterpriseUserService;
 import com.luxury.utils.Exceptions;
 import com.luxury.utils.JsonResult;
@@ -36,7 +37,7 @@ import javax.validation.Valid;
 @Slf4j
 public class RegistController extends BaseController {
 
-    @Autowired(required = false)
+    @Autowired
     IEnterpriseUserService enterpriseUserService;
 
     /**
@@ -75,6 +76,21 @@ public class RegistController extends BaseController {
             throw Exceptions.unchecked(e);
         }
 
+    }
+
+    @PostMapping({
+            URLConstants.WECHATREGISTER_WECHAT,
+            URLConstants.WECHATREGISTER_APPLET_WECHAT,
+            URLConstants.WECHATREGISTER_APPLET_ALI })
+    public void wechatRegister(@Valid @RequestBody HttpReqBodyBasic<WeChatRegisterReq> body,
+                               HttpServletRequest request, HttpServletResponse response){
+        try {
+            OuthSourceEnt outhSourceEnt = getOuthSourceEnt(request);
+            Object resp = userInfoRegistService.weChatRegister(body.getParams(),outhSourceEnt);
+            sendJsonObject(response, resp);
+        } catch (Exception e) {
+            throw Exceptions.unchecked(e);
+        }
     }
 
 }

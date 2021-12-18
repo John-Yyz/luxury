@@ -183,39 +183,15 @@ public class EnterpriseUserServiceImpl implements IEnterpriseUserService {
             return JsonResult.error(ErrorCode.THE_USER_IS_FREEZE.getCode(), "您的账号已被冻结，请联系非洗不可");
         }
 
-
         params.clear();
-        if(StringUtils.isNotBlank(enterpriseUser.getUnionid())){
-            //通过unionId获取用户信息
-            params.put("unionid",enterpriseUser.getUnionid());
-            EnterpriseUser upEnterpriseUser = enterpriseUserMapper.selectByParams(params);
-            if(Objects.isNull(upEnterpriseUser)){
-                //通过手机号去获取用户信息，如果不存在，是真的不存在该用户
-                params.put("userMobile",enterpriseUser.getUserMobile());
-                upEnterpriseUser = enterpriseUserMapper.selectByParams(params);
-                if(Objects.isNull(upEnterpriseUser)){
-                    //前端调用插入接口
-                    return JsonResult.error(10001,"用户不存在");
-                }else{
-                    //这个前端要调用修改接口
-                    return JsonResult.success("用户已存在");
-                }
-
-            }else{
-                //这个前端要调用修改接口
-                return JsonResult.success("用户已存在");
-            }
-
+        params.put("userMobile",enterpriseUser.getUserMobile());
+        EnterpriseUser upEnterpriseUser = enterpriseUserMapper.selectByParams(params);
+        if(Objects.isNull(upEnterpriseUser)){
+            //前端调用插入接口
+            return JsonResult.error(10001,"用户不存在");
         }else{
-            params.put("userMobile",enterpriseUser.getUserMobile());
-            EnterpriseUser upEnterpriseUser = enterpriseUserMapper.selectByParams(params);
-            if(Objects.isNull(upEnterpriseUser)){
-                //前端调用插入接口
-                return JsonResult.error(10001,"用户不存在");
-            }else{
-                //这个前端要调用修改接口
-                return JsonResult.success("用户已存在");
-            }
+            //这个前端要调用修改接口
+            return JsonResult.success("用户已存在");
         }
     }
 

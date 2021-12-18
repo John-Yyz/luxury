@@ -17,9 +17,13 @@ public interface UserSourceMapper {
 
     int updateByPrimaryKey(UserSource record);
 
+    int updateByPrimaryKeySelective(UserSource record);
+
     UserSource selectByUserMobileAndSource(Map<String,Object> params);
 
     UserSource findUserIsRegistByOpenId(Map<String,Object> params);
 
     UserSource findUserIsRegistByUnionid(Map<String,Object> params);
+
+    UserSource selectByUserSourceAndUserId(Map<String,Object> params);
 }

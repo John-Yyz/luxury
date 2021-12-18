@@ -24,8 +24,8 @@ public class CheckWechatRegistReq implements Serializable {
     private Integer userSource;
 
     /**
-     * 来源OpenId
+     * 来源OpenId(小程序存放的是jscode)
      */
-    @ApiModelProperty(value = "来源OpenId")
+    @ApiModelProperty(value = "来源OpenId(小程序存放的是jscode)")
     private String openId;
 }

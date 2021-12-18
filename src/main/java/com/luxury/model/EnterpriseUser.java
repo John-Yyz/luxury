@@ -54,12 +54,6 @@ public class EnterpriseUser implements Serializable {
     private String userImg;
 
     /**
-     * 微信openid
-     */
-    @ApiModelProperty(value = "微信openid")
-    private String weixinOpenid;
-
-    /**
      * 用户密码
      */
     @ApiModelProperty(value = "用户密码")
@@ -88,28 +82,4 @@ public class EnterpriseUser implements Serializable {
      */
     @ApiModelProperty(value = "是否企业用户")
     private Integer enterpriseType;
-
-    /**
-     * 微信小程序openid
-     */
-    @ApiModelProperty(value = "微信小程序openid")
-    private String smallOpenid;
-
-    /**
-     * 支付宝小程序openid
-     */
-    @ApiModelProperty(value = "支付宝小程序openid")
-    private String aliOpenid;
-
-    /**
-     * 抖音小程序openid
-     */
-    @ApiModelProperty(value = "抖音小程序openid")
-    private String tiktokOpenid;
-
-    /**
-     * 小程序unionID
-     */
-    @ApiModelProperty(value = "小程序unionID")
-    private String unionid;
 }

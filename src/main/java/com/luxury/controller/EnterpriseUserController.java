@@ -1,6 +1,7 @@
 package com.luxury.controller;
 
 import com.luxury.base.BaseController;
+import com.luxury.config.URLConstants;
 import com.luxury.model.EnterpriseUser;
 import com.luxury.request.CheckWechatRegistReq;
 import com.luxury.request.OuthSourceEnt;
@@ -28,7 +29,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Api(description = "【APP】用户信息管理", tags = "EnterpriseUserController", basePath = "/enterpriseUser")
 @RestController
-@RequestMapping("/api/v1/enterpriseUser")
+@RequestMapping(URLConstants.USER_INFO_CONTROLLER)
 @Slf4j
 public class EnterpriseUserController extends BaseController {
 

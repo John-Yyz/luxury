@@ -125,7 +125,7 @@ public class BaseController {
     public OuthSourceEnt getOuthSourceEnt(HttpServletRequest request) throws UnsupportedEncodingException {
         OuthSourceEnt outhSourceEnt  = null;
         try {
-            Object object = request.getParameter("outhSourceEnt");
+            Object object = request.getAttribute("outhSourceEnt");
             if(object != null){
                 outhSourceEnt = (OuthSourceEnt) object;
             }

@@ -48,10 +48,10 @@ public class JwtFilter extends GenericFilter{
 
             String reqUrl = requestWrapper.getRequestURI();
             if(reqUrl.contains("/null")){
-                reqUrl.replace("/null","");
+                reqUrl = reqUrl.replace("/null","");
             }
 
-            if (reqUrl.indexOf("/outh/") == 0) {
+            if (reqUrl.contains("/outh/")) {
 
                 Integer platype = StringUtils.isBlank(requestWrapper.getHeader("platype")) ? null
                         : Integer.valueOf(requestWrapper.getHeader("platype"));
@@ -66,7 +66,7 @@ public class JwtFilter extends GenericFilter{
 
                 chain.doFilter(requestWrapper, res);
                 return;
-            } else if (reqUrl.indexOf("/api/") == 0) {
+            } else if (reqUrl.contains("/top/")) {
                 // 客户端将token封装在请求头中，格式为（Bearer后加空格）：Authorization：Bearer +token
                 final String jsonWebToken = request.getHeader("Authorization");
 
@@ -106,15 +106,8 @@ public class JwtFilter extends GenericFilter{
                 }
                 requestWrapper.setAttribute("reqInfoEnt", reqInfoEnt);
                 chain.doFilter(requestWrapper, res);
-            } else if (reqUrl.contains("swagger-ui")) {
-                chain.doFilter(req, res);
-            } else if (reqUrl.contains("config")) {
-                chain.doFilter(requestWrapper, res);
-            } else if (reqUrl.contains("druid")) {
-                chain.doFilter(requestWrapper, res);
             } else {
-                // LOGGER.error(" 请求链接不存在,请确认！！！ " + reqUrl);
-                sendJsonObject(response, JsonResult.error(ErrorCode.FAILED.getCode(), "请求链接不存在,请确认！！！"));
+                chain.doFilter(requestWrapper, res);
             }
         } catch (Exception e) {
             sendJsonObject(response, JsonResult.error(ErrorCode.FAILED.getCode(),  "验签异常"));

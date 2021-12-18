@@ -15,7 +15,7 @@ public class URLConstants {
     public final static String JWT_CONTROLLER = "/outh/v1/jwtController";
 
     //用户控制URL
-    public final static String USER_INFO_CONTROLLER = "/api/v1/userInfoController";
+    public final static String USER_INFO_CONTROLLER = "/top/v1/userInfoController";
 
     //用户注册控制URL
     public final static String REGIST_CONTROLLER = "/outh/v1/registController";
