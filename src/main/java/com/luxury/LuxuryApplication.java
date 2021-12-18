@@ -1,14 +1,11 @@
 package com.luxury;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-/*@EntityScan(basePackages = "com.luxury.model")
-@MapperScan(value = "com.luxury.mapper")
-@ComponentScan({ "com.luxury.mapper"})*/
-@SpringBootApplication
-@ComponentScan(basePackages = {"com.luxury.config","com.luxury.filter","com.luxury.controller","com.luxury.service"})//根据自己需要填写包名
+@SpringBootApplication(scanBasePackages = {"com.luxury.*"})
+@MapperScan("com.luxury.mapper")
 @EnableSwagger2
 public class LuxuryApplication {
 

@@ -20,6 +20,9 @@ public class URLConstants {
     //用户注册控制URL
     public final static String REGIST_CONTROLLER = "/outh/v1/registController";
 
+    //工具类URL
+    public final static String UTILS_CONTROLLER = "/outh/v1/utilsController";
+
     /** Controller_URL */
 
 
@@ -56,7 +59,8 @@ public class URLConstants {
 
 
 
-
+    //获取微信用户绑定手机号
+    public final static String GET_PHONENUMBER_APPLET_WECHAT = "/getPhoneNumberForAppletWechat";
 
 
     /** Request_URL */

@@ -33,13 +33,4 @@ public interface IEnterpriseUserService extends IBaseService<EnterpriseUser> {
      */
     JsonResult getUserInfo(EnterpriseUser enterpriseUser);
 
-    /**
-     * 获取微信小程序openId
-     * @param appId
-     * @param appSecret
-     * @param jscode
-     * @return
-     */
-    Map<String,Object> getWechatAppletUserOpenid(String appId, String appSecret, String jscode);
-
 }

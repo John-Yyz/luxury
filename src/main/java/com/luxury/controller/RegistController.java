@@ -3,11 +3,9 @@ package com.luxury.controller;
 import com.luxury.base.BaseController;
 import com.luxury.config.URLConstants;
 import com.luxury.model.EnterpriseUser;
-import com.luxury.request.CheckWechatRegistReq;
-import com.luxury.request.HttpReqBodyBasic;
-import com.luxury.request.OuthSourceEnt;
-import com.luxury.request.WeChatRegisterReq;
+import com.luxury.request.*;
 import com.luxury.service.IEnterpriseUserService;
+import com.luxury.service.IUserInfoRegistService;
 import com.luxury.utils.Exceptions;
 import com.luxury.utils.JsonResult;
 import io.swagger.annotations.Api;
@@ -32,13 +30,15 @@ import javax.validation.Valid;
  * @date 2021/11/26 1:43
  */
 @Api(description = "【APP】用户信息管理", tags = "RegistController", basePath = "/registController")
-@RestController
+@RestController("registController")
 @RequestMapping(URLConstants.REGIST_CONTROLLER)
 @Slf4j
 public class RegistController extends BaseController {
 
     @Autowired
     IEnterpriseUserService enterpriseUserService;
+    @Autowired
+    IUserInfoRegistService userInfoRegistService;
 
     /**
      * 检查用户是否存在
@@ -66,17 +66,17 @@ public class RegistController extends BaseController {
      * @param body
      * @return
      */
-    @PostMapping(value = "regUser")
-    @ApiOperation(value = "注册用户", notes = "注册用户")
-    public JsonResult regUser(@Valid @RequestBody HttpReqBodyBasic<EnterpriseUser> body, HttpServletRequest request, HttpServletResponse response){
-        try {
-            OuthSourceEnt outhSourceEnt = getOuthSourceEnt(request);
-            return enterpriseUserService.add(body.getParams());
-        } catch (Exception e) {
-            throw Exceptions.unchecked(e);
-        }
-
-    }
+//    @PostMapping(value = "regUser")
+//    @ApiOperation(value = "注册用户", notes = "注册用户")
+//    public JsonResult regUser(@Valid @RequestBody HttpReqBodyBasic<EnterpriseUser> body, HttpServletRequest request, HttpServletResponse response){
+//        try {
+//            OuthSourceEnt outhSourceEnt = getOuthSourceEnt(request);
+//            return enterpriseUserService.add(body.getParams());
+//        } catch (Exception e) {
+//            throw Exceptions.unchecked(e);
+//        }
+//
+//    }
 
     @PostMapping({
             URLConstants.WECHATREGISTER_WECHAT,
@@ -93,4 +93,15 @@ public class RegistController extends BaseController {
         }
     }
 
+    @PostMapping({ URLConstants.GET_PHONENUMBER_APPLET_WECHAT})
+    public void getPhoneNumberByWechat(@Valid @RequestBody HttpReqBodyBasic<GetPhoneNumberReq> body,
+                                       HttpServletRequest request, HttpServletResponse response){
+        try {
+            OuthSourceEnt outhSourceEnt = getOuthSourceEnt(request);
+            Object resp = userInfoRegistService.getPhoneNumberByWechat(body.getParams(),outhSourceEnt);
+            sendJsonObject(response, resp);
+        } catch (Exception e) {
+            throw Exceptions.unchecked(e);
+        }
+    }
 }

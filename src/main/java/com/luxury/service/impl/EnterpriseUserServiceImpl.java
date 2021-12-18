@@ -51,9 +51,6 @@ public class EnterpriseUserServiceImpl implements IEnterpriseUserService {
     @Autowired(required = false)
     EnterpriseInfoMapper enterpriseInfoMapper;
 
-    @Autowired(required = false)
-    ReqGetService reqGetService;
-
     @Autowired
     WechatService wechatService;
 
@@ -224,79 +221,6 @@ public class EnterpriseUserServiceImpl implements IEnterpriseUserService {
             enterpriseUserResp.setAuditStatus(enterpriseInfo.getAuditStatus());
         }
         return JsonResult.success("操作成功",enterpriseUserResp);
-    }
-
-    /**
-     * 获取微信小程序openId
-     *
-     * @param appId
-     * @param appSecret
-     * @param jscode
-     * @return
-     */
-    @Override
-    public Map<String,Object> getWechatAppletUserOpenid(String appId, String appSecret, String jscode) {
-        // 授权（必填）
-        String grant_type = "authorization_code";
-
-        // URL
-        String requestUrl = "https://api.weixin.qq.com/sns/jscode2session";
-
-        // 请求参数
-        String params = "appid=" + appId + "&secret=" + appSecret + "&js_code=" + jscode + "&grant_type=" + grant_type;
-
-        String openId = null;
-
-        String sessionKey = null;
-
-        String unionid = null;
-
-        try {
-
-            // 发送请求
-            requestUrl = requestUrl + "?" + params;
-            String data = reqGetService.req(requestUrl, null);
-
-            // 解析相应内容（转换成json对象）
-            JSONObject json = null;
-            if (StringUtils.isNotBlank(data)) {
-                json = JSONObject.parseObject(data);
-            } else {
-                logger.error("请求微信获取不到openid，微信返回的结果：" + data);
-                return null;
-            }
-
-            if (Objects.isNull(json)) {
-                return null;
-            }
-
-            Object openid = json.get("openid");
-            if (Objects.isNull(openid)) {
-                logger.error("获取不到openid，微信返回的结果：" + data);
-                return null;
-            }
-
-            openId = String.valueOf(openid);
-
-            Object session_key = json.get("session_key");
-            if (!Objects.isNull(session_key)) {
-                sessionKey = String.valueOf(session_key);
-            }
-
-            Object unionid_id = json.get("unionid");
-            if (!Objects.isNull(unionid_id)) {
-                unionid = String.valueOf(unionid_id);
-            }
-
-        } catch (Exception e) {
-            logger.error("请求获取微信openid出错", e);
-        }
-
-        Map<String, Object> result = new HashMap<String, Object>();
-        result.put("openId", openId);
-        result.put("sessionKey", sessionKey);
-        result.put("unionid", unionid);
-        return result;
     }
 
     /**

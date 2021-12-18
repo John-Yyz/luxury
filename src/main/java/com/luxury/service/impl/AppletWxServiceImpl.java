@@ -5,6 +5,7 @@ import com.luxury.mapper.UserSourceMapper;
 import com.luxury.model.UserSource;
 import com.luxury.service.AppletWxService;
 import com.luxury.service.IEnterpriseUserService;
+import com.luxury.service.IUserInfoRegistService;
 import com.luxury.utils.DateUtils;
 import com.luxury.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -29,8 +30,11 @@ public class AppletWxServiceImpl implements AppletWxService {
     @Autowired
     IEnterpriseUserService enterpriseUserService;
 
-    @Autowired(required = false)
+    @Autowired
     UserSourceMapper userSourceMapper;
+
+    @Autowired
+    IUserInfoRegistService userInfoRegistService;
 
     /**
      * 通过jscode获取微信小程序信息
@@ -44,7 +48,7 @@ public class AppletWxServiceImpl implements AppletWxService {
         String appSecret = DomainData.appSecret;
 
         // 请求微信小程序获取openId
-        Map<String, Object> result = enterpriseUserService.getWechatAppletUserOpenid(appId, appSecret, jscode);
+        Map<String, Object> result = userInfoRegistService.getWechatAppletUserOpenid(appId, appSecret, jscode);
         if (result == null || result.isEmpty())
             return null;
 
@@ -132,7 +136,7 @@ public class AppletWxServiceImpl implements AppletWxService {
         String appSecret = DomainData.appSecret;
 
         // 请求微信小程序获取openId
-        Map<String, Object> result = enterpriseUserService.getWechatAppletUserOpenid(appId, appSecret, jscode);
+        Map<String, Object> result = userInfoRegistService.getWechatAppletUserOpenid(appId, appSecret, jscode);
         if (result == null || result.isEmpty())
             return null;
 
