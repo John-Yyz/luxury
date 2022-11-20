@@ -23,6 +23,9 @@ public class URLConstants {
     //工具类URL
     public final static String UTILS_CONTROLLER = "/outh/v1/utilsController";
 
+    //系统用户控制URL
+    public final static String SYS_USER_CONTROLLER = "/top/v1/sysUserController";
+
     /** Controller_URL */
 
 
